@@ -31,7 +31,8 @@ function Core(matrixcontID, rows, cols, scorecontID, startscore){
 		that.apple = new Apple(that.matrix);
 		that.apple.create();
 
-		that.IntID = setInterval(function() {
+		// clearInterval(that.IntID);
+		that.IntID = setInterval(function() {			
 			if(that.snake.alive) {
 				
 				if((that.snake.body[0][0] == that.apple.body[0]) && (that.snake.body[0][1] == that.apple.body[1])){
@@ -44,6 +45,7 @@ function Core(matrixcontID, rows, cols, scorecontID, startscore){
 				that.snake.move();
 			} 
 			else that.stop();
+
 		}, 100);
 	};
 
@@ -67,9 +69,11 @@ function Core(matrixcontID, rows, cols, scorecontID, startscore){
 		};
 	};
 
-	this.stop = function(){
+	this.stop = function(type){
 		that.play = false;
+		that.score = 0;
 		clearInterval(that.IntID);
-		alert('Game over!');
+		if(type == 'new game') alert('New game!')
+		else alert('Game over!');
 	};
 };
