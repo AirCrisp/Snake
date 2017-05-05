@@ -1,6 +1,7 @@
 function Snake(matrix, row, col, course){
 	this.body = [[row, col]];
 	this.course = course;
+	this.courseflag = true;
 	this.alive = true;
 	var that = this;
 	
@@ -12,10 +13,7 @@ function Snake(matrix, row, col, course){
 	this.checkAlive = function(){
 		var maxrows = matrix.rows;
 		var maxcols = matrix.cols;
-		if(that.body[0][0] < 1 || that.body[0][1] < 1 || 
-			that.body[0][0] > maxcols || that.body[0][1] > maxrows)
-			that.alive = false;
-		
+
 		if(that.body.length > 3){
 			that.alive = !that.body.some(function(currentItem, index){
 				if(index > 0)
@@ -23,10 +21,15 @@ function Snake(matrix, row, col, course){
 			});
 		}
 
+		if(that.body[0][0] < 1 || that.body[0][1] < 1 || 
+			that.body[0][0] > maxcols || that.body[0][1] > maxrows)
+			that.alive = false;
+
 	};
 
 	this.move = function()
 	{
+		that.courseflag = true;
 		var last_body = that.body.slice();
 		
 		switch(that.course)

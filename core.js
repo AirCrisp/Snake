@@ -28,7 +28,7 @@ function Core(matrixcontID, rows, cols, scorecontID, startscore){
 		that.snake = new Snake(that.matrix, 1, 1, 'right');
 		that.snake.create();
 
-		that.apple = new Apple(that.matrix, parseInt(Math.random()*(that.matrixRows - 1) + 1), parseInt(Math.random()*(that.matrixCols - 1) + 1));
+		that.apple = new Apple(that.matrix);
 		that.apple.create();
 
 		that.IntID = setInterval(function() {
@@ -44,23 +44,26 @@ function Core(matrixcontID, rows, cols, scorecontID, startscore){
 				that.snake.move();
 			} 
 			else that.stop();
-		}, 200);
+		}, 100);
 	};
 
 	this.changecourse = function(keycode){
-		switch(keycode) {
-			case LEFT_KEY :
-				that.snake.course = 'left';
-				break;
-			case UP_KEY : 
-				that.snake.course = 'up';
-				break;
-			case RIGHT_KEY : 
-				that.snake.course = 'right';
-				break;
-			case DOWN_KEY : 
-				that.snake.course = 'down';
-				break;			
+		if(that.snake.courseflag){
+			switch(keycode) {
+				case LEFT_KEY :
+					if(that.snake.course != 'right') that.snake.course = 'left';
+					break;
+				case UP_KEY : 
+					if(that.snake.course != 'down') that.snake.course = 'up';
+					break;
+				case RIGHT_KEY : 
+					if(that.snake.course != 'left') that.snake.course = 'right';
+					break;
+				case DOWN_KEY : 
+					if(that.snake.course != 'up') that.snake.course = 'down';
+					break;			
+				};
+			that.snake.courseflag = false;
 		};
 	};
 
