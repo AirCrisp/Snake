@@ -73,7 +73,7 @@ function Core(matrixcontID, rows, cols, scorecontID, startscore){
 		that.play = false;
 		that.score = 0;
 		clearInterval(that.IntID);
-		if(type == 'new game') alert('New game!')
+		if(type == 'new game') alert('New game')
 		else alert('Game over!');
 	};
 };
