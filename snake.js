@@ -57,6 +57,7 @@ function Snake(matrix, row, col, course){
 
 	this.eat = function(){
 		that.body.push(that.body[that.body.length - 1]);
+		matrix.setCell(that.body[0][0], that.body[0][1], false, 'apple');
 		matrix.setCell(that.body[that.body.length - 1][0], that.body[that.body.length - 1][1], true, 'snake');
 	};	
 };

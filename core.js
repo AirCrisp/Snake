@@ -9,7 +9,7 @@ function Core(matrixcontID, rows, cols, scorecontID, startscore){
 	this.mcontainer = matrixcontID;
 	this.matrixRows = rows;
 	this.matrixCols = cols;
-	this.scorecontainer = document.querySelectorAll('#' + scorecontID + ' span')[0];
+	this.scorecontainer = $('#' + scorecontID + ' span');
 	this.matrix;
 	this.snake;
 	this.IntID;
@@ -23,7 +23,7 @@ function Core(matrixcontID, rows, cols, scorecontID, startscore){
 		that.matrix = new Matrix(that.mcontainer, this.matrixRows, this.matrixCols);
 		that.matrix.create();
 
-		that.scorecontainer.innerHTML = that.score;
+		that.scorecontainer.html(that.score);
 
 		that.snake = new Snake(that.matrix, 1, 1, 'right');
 		that.snake.create();
@@ -40,7 +40,7 @@ function Core(matrixcontID, rows, cols, scorecontID, startscore){
 					that.apple = new Apple(that.matrix, parseInt(Math.random()*that.matrixRows + 1), parseInt(Math.random()*that.matrixCols + 1));
 					that.apple.create();
 					that.score++;
-					that.scorecontainer.innerHTML = that.score;							
+					that.scorecontainer.html(that.score);
 				};
 				that.snake.move();
 			} 

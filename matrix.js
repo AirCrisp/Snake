@@ -1,7 +1,7 @@
 function Matrix(containerId, rows, cols){
 
 	this.containerId = containerId;
-	this.container = document.getElementById(this.containerId);
+	this.container = $('#' + this.containerId);
 	this.rows = rows;
 	this.cols = cols;
 	var that = this;
@@ -10,19 +10,19 @@ function Matrix(containerId, rows, cols){
 	{
 		var n = this.rows * this.cols;	
 		
-		that.container.innerHTML = '';
+		that.container.html('');
 		
 		for (var i = 0; i < n; i++)
 		{
 			var div = document.createElement('div');
 			div.className = 'cell';
-			that.container.appendChild(div);
+			that.container.append(div);
 		}
 	}
 	
 	this.getCell = function(row, col)
 	{
-		if(that.container.childNodes[(row-1)*that.cols+col-1].className == 'cell on') 
+		if(that.container.children().eq((row-1)*that.cols+col-1).hasClass('cell on')) 
 			return true;
 		return false;
 	}
@@ -30,20 +30,18 @@ function Matrix(containerId, rows, cols){
 	this.setCell = function(row, col, val, type)
 	{
 		var ind = (row - 1) * this.cols + col - 1;
-		var matrix = document.getElementById(this.containerId);
-		var cell = matrix.children[ind];	
+		var matrix = $('#' + this.containerId);
+		var cell = matrix.children().eq(ind);	
 		var classOn;
-		var classOff;
 		switch(type){
 			case 'snake':
-				classOn = 'cell on';
-				classOff = 'cell';
+				classOn = 'on';
 				break;
 			case 'apple':
-				classOn = 'cell apple';
-				classOff = 'cell';
+				classOn = 'apple';
 				break;
 		};
-		cell.className = (val ? classOn : classOff);
+
+		cell.toggleClass(classOn, val);
 	}	
 };
