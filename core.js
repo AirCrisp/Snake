@@ -1,8 +1,3 @@
-LEFT_KEY = 37;
-UP_KEY = 38;
-RIGHT_KEY = 39;
-DOWN_KEY = 40;
-
 function Core(matrixcontID, rows, cols, scorecontID, startscore){
 	this.play = false;
 	this.score = startscore || 0;
@@ -25,7 +20,7 @@ function Core(matrixcontID, rows, cols, scorecontID, startscore){
 
 		that.scorecontainer.html(that.score);
 
-		that.snake = new Snake(that.matrix, 1, 1, 'right');
+		that.snake = new Snake(that.matrix, 1, 1, 'down');
 		that.snake.create();
 
 		that.apple = new Apple(that.matrix);
@@ -46,7 +41,7 @@ function Core(matrixcontID, rows, cols, scorecontID, startscore){
 			} 
 			else that.stop();
 
-		}, 100);
+		}, 300);
 	};
 
 	this.changecourse = function(keycode){
