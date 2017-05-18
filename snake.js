@@ -1,63 +1,58 @@
-function Snake(matrix, row, col, course){
-	this.body = [[row, col]];
-	this.course = course;
-	this.courseflag = true;
-	this.alive = true;
-	var that = this;
-	
-	this.create = function()
-	{
-		matrix.setCell(that.body[0][0], that.body[0][1], true, 'snake');
-	}
-	
-	this.checkAlive = function(){
-		var maxrows = matrix.rows;
-		var maxcols = matrix.cols;
-
-		if(that.body.length > 3){
-			that.alive = !that.body.some(function(currentItem, index){
-				if(index > 0)
-					return (that.body[0][0] == currentItem[0] && that.body[0][1] == currentItem[1])
-			});
-		}
-
-		if(that.body[0][0] < 1 || that.body[0][1] < 1 || 
-			that.body[0][0] > maxcols || that.body[0][1] > maxrows)
-			that.alive = false;
-
-	};
-
-	this.move = function()
-	{
-		that.courseflag = true;
-		var last_body = that.body.slice();
-		
-		switch(that.course)
-		{
-			case 'right':
-				that.body.unshift([that.body[0][0], that.body[0][1] + 1]);
-				break;
-			case 'left':
-				that.body.unshift([that.body[0][0], that.body[0][1] - 1]);
-				break;
-			case 'up':
-				that.body.unshift([that.body[0][0] - 1 , that.body[0][1]]);
-				break;
-			case 'down':
-				that.body.unshift([that.body[0][0] + 1 , that.body[0][1]]);
-				break;								
-		}
-		that.body.pop();
-		that.checkAlive();
-
-		if(that.alive){
-				matrix.setCell(last_body[last_body.length - 1][0], last_body[last_body.length - 1][1], false, 'snake');
-				matrix.setCell(that.body[0][0], that.body[0][1], true, 'snake');}
-	}
-
-	this.eat = function(){
-		that.body.push(that.body[that.body.length - 1]);
-		matrix.setCell(that.body[0][0], that.body[0][1], false, 'apple');
-		matrix.setCell(that.body[that.body.length - 1][0], that.body[that.body.length - 1][1], true, 'snake');
-	};	
-};
+var Snake = (function () {
+    function Snake(matrix, row, col, course) {
+        this.body = [[row, col]];
+        this.course = course;
+        this.courseflag = true;
+        this.alive = true;
+        this.matrix = matrix;
+    }
+    Snake.prototype.create = function () {
+        this.matrix.setCell(this.body[0][0], this.body[0][1], true, 'snake');
+    };
+    Snake.prototype.checkAlive = function () {
+        var maxrows = this.matrix.rows;
+        var maxcols = this.matrix.cols;
+        if (this.body.length > 3) {
+            this.alive = !this.body.some(function (currentItem, index) {
+                if (index > 0)
+                    return (this.body[0][0] == currentItem[0] && this.body[0][1] == currentItem[1]);
+            }, this);
+        }
+        if (this.body[0][0] < 1 || this.body[0][1] < 1 ||
+            this.body[0][0] > maxcols || this.body[0][1] > maxrows)
+            this.alive = false;
+    };
+    ;
+    Snake.prototype.move = function () {
+        this.courseflag = true;
+        var last_body = this.body.slice();
+        switch (this.course) {
+            case 'right':
+                this.body.unshift([this.body[0][0], this.body[0][1] + 1]);
+                break;
+            case 'left':
+                this.body.unshift([this.body[0][0], this.body[0][1] - 1]);
+                break;
+            case 'up':
+                this.body.unshift([this.body[0][0] - 1, this.body[0][1]]);
+                break;
+            case 'down':
+                this.body.unshift([this.body[0][0] + 1, this.body[0][1]]);
+                break;
+        }
+        this.body.pop();
+        this.checkAlive();
+        if (this.alive) {
+            this.matrix.setCell(last_body[last_body.length - 1][0], last_body[last_body.length - 1][1], false, 'snake');
+            this.matrix.setCell(this.body[0][0], this.body[0][1], true, 'snake');
+        }
+    };
+    Snake.prototype.eat = function () {
+        this.body.push(this.body[this.body.length - 1]);
+        this.matrix.setCell(this.body[this.body.length - 1][0], this.body[this.body.length - 1][1], true, 'snake');
+    };
+    ;
+    return Snake;
+}());
+;
+//# sourceMappingURL=snake.js.map
