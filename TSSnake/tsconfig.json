@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true
+    },
+    "files": [
+        "core.ts",
+        "onload.ts",
+        "matrix.ts",
+        "apple.ts",
+        "snake.ts"
+    ]
+}
