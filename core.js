@@ -15,7 +15,6 @@ var Core = (function () {
         this.scorecontainer = document.querySelectorAll('#' + scorecontID + ' span')[0];
     }
     Core.prototype.start = function () {
-        var _this = this;
         this.play = true;
         this.matrix = new Matrix(this.mcontainer, this.matrixRows, this.matrixCols);
         this.matrix.display();
@@ -24,20 +23,21 @@ var Core = (function () {
         this.snake.create();
         this.apple = new Apple(this.matrix);
         this.apple.display();
+        var that = this;
         this.IntID = setInterval(function () {
-            if (_this.snake.alive) {
-                if ((_this.snake.body[0][0] == _this.apple.body[0]) && (_this.snake.body[0][1] == _this.apple.body[1])) {
-                    _this.snake.eat();
-                    _this.apple = new Apple(_this.matrix, Number(Math.random() * _this.matrixRows + 1), Number(Math.random() * _this.matrixCols + 1));
-                    _this.apple.display();
-                    _this.score++;
-                    _this.scorecontainer.innerHTML = _this.score;
+            if (that.snake.alive) {
+                if ((that.snake.body[0][0] == that.apple.body[0]) && (that.snake.body[0][1] == that.apple.body[1])) {
+                    that.snake.eat();
+                    that.apple = new Apple(that.matrix);
+                    that.apple.display();
+                    that.score++;
+                    that.scorecontainer.innerHTML = that.score;
                 }
                 ;
-                _this.snake.move();
+                that.snake.move();
             }
             else
-                _this.stop();
+                that.stop();
         }, 100);
     };
     ;

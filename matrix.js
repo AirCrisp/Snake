@@ -15,7 +15,7 @@ var Matrix = (function () {
         }
     };
     Matrix.prototype.getCell = function (row, col) {
-        if (this.container.childNodes[(row - 1) * this.cols + col - 1].className == 'cell on')
+        if (this.container.childNodes[Math.round((row - 1) * this.cols + col - 1)].className == 'cell on')
             return true;
         return false;
     };
